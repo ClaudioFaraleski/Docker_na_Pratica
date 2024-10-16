@@ -1,6 +1,6 @@
 # Docker_na_Pratica
 
-<h3>. Build e Execução com Docker
+<h3>1.Build e Execução com Docker
 Agora, no terminal, navega até o diretório de cada microsserviço e constrói as imagens Docker.</h3>
 
 #Auth Service
@@ -30,7 +30,7 @@ Agora vamos configurar os Deployment e Services no Kubernetes.
 
 4.1 Auth Service - Kubernetes Config
 Cria um ficheiro auth-service-deployment.yaml com a seguinte configuração:
-
+---
 yaml
 Copiar código
 apiVersion: apps/v1
