@@ -1,36 +1,62 @@
-# Docker_na_Pratica
+Microsserviços com Docker e Kubernetes
+Este projeto implementa dois microsserviços: Auth Service e Catalog Service, utilizando Docker para containerização e Kubernetes para orquestração. O objetivo é criar serviços escaláveis e independentes que possam ser implantados em um ambiente local ou na nuvem.
 
-<h3>1.Build e Execução com Docker
-Agora, no terminal, navega até o diretório de cada microsserviço e constrói as imagens Docker.</h3>
+Índice
+Pré-requisitos
+Build e Execução com Docker
+Auth Service
+Catalog Service
+Orquestração com Kubernetes
+Configuração do Auth Service
+Configuração do Catalog Service
+Aplicar a Configuração no Kubernetes
+Verificar o Deploy
+Conclusão
+Pré-requisitos
+Docker instalado
+Kubernetes instalado (local com Minikube ou gerido na nuvem, como AWS EKS)
+Kubectl configurado para gerenciar o cluster Kubernetes
+Build e Execução com Docker
+Auth Service
+Navegue até o diretório do Auth Service:
 
-#Auth Service
 bash
 Copiar código
 cd auth-service
-docker build -t auth-service:1.0 .
-Catalog Service
+Construa a imagem Docker:
+
 bash
 Copiar código
-cd catalog-service
-docker build -t catalog-service:1.0 .
-Agora podes executar os containers localmente:
+docker build -t auth-service:1.0 .
+Execute o container:
 
-Para o Auth Service:
 bash
 Copiar código
 docker run -d -p 4000:3000 auth-service:1.0
-Para o Catalog Service:
+Isso exporá o serviço de autenticação na porta 4000.
+
+Catalog Service
+Navegue até o diretório do Catalog Service:
+
+bash
+Copiar código
+cd catalog-service
+Construa a imagem Docker:
+
+bash
+Copiar código
+docker build -t catalog-service:1.0 .
+Execute o container:
+
 bash
 Copiar código
 docker run -d -p 5000:3000 catalog-service:1.0
-Isso vai expor os serviços nas portas 4000 e 5000, respectivamente.
+Isso exporá o serviço de catálogo na porta 5000.
 
-4. Orquestração com Kubernetes
-Agora vamos configurar os Deployment e Services no Kubernetes.
+Orquestração com Kubernetes
+Configuração do Auth Service
+Crie um arquivo auth-service-deployment.yaml com o seguinte conteúdo:
 
-4.1 Auth Service - Kubernetes Config
-Cria um ficheiro auth-service-deployment.yaml com a seguinte configuração:
----
 yaml
 Copiar código
 apiVersion: apps/v1
@@ -64,8 +90,8 @@ spec:
     targetPort: 3000
   selector:
     app: auth
-4.2 Catalog Service - Kubernetes Config
-Cria um ficheiro catalog-service-deployment.yaml com a seguinte configuração:
+Configuração do Catalog Service
+Crie um arquivo catalog-service-deployment.yaml com o seguinte conteúdo:
 
 yaml
 Copiar código
@@ -100,25 +126,25 @@ spec:
     targetPort: 3000
   selector:
     app: catalog
-4.3 Aplicar a Configuração no Kubernetes
-Assumindo que já tens o Kubernetes instalado e configurado (pode ser um cluster local com minikube ou um cluster gerido na AWS com EKS), podes aplicar as configurações YAML da seguinte forma:
+Aplicar a Configuração no Kubernetes
+Aplique a configuração do Auth Service:
 
-Auth Service:
 bash
 Copiar código
 kubectl apply -f auth-service-deployment.yaml
-Catalog Service:
+Aplique a configuração do Catalog Service:
+
 bash
 Copiar código
 kubectl apply -f catalog-service-deployment.yaml
-4.4 Verificar o Deploy
-Para verificares se os serviços estão ativos, podes executar:
+Verificar o Deploy
+Para verificar se os serviços estão funcionando corretamente, execute:
 
 bash
 Copiar código
 kubectl get pods
 kubectl get services
-Os serviços devem estar expostos e acessíveis. O Kubernetes atribuirá um LoadBalancer (no caso da AWS, será um ELB) ou um IP para acessar os microsserviços.
+Você verá os pods rodando e os serviços expostos. O Kubernetes atribuirá um IP ou LoadBalancer, dependendo da configuração do cluster.
 
-5. Conclusão
-Neste exemplo, implementámos dois microsserviços com Docker e fizemos o deploy deles usando Kubernetes. A configuração segue as melhores práticas, permitindo que os serviços sejam escaláveis e independentes. Além disso, podes integrar este setup com serviços de nuvem como AWS (usando EKS para Kubernetes e outros recursos como bases de dados RDS, S3, etc.).
+Conclusão
+Neste projeto, foram implementados dois microsserviços utilizando Docker para a criação de containers e Kubernetes para a orquestração. Ambos os serviços são escaláveis e podem ser facilmente implantados em qualquer ambiente, seja local ou em nuvem. Além disso, o Kubernetes facilita o gerenciamento e a escalabilidade, garantindo alta disponibilidade dos serviços.
