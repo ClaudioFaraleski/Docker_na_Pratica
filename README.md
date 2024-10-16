@@ -1,9 +1,9 @@
 # Docker_na_Pratica
 
-3. Build e Execução com Docker
-Agora, no terminal, navega até o diretório de cada microsserviço e constrói as imagens Docker.
+<h3>. Build e Execução com Docker
+Agora, no terminal, navega até o diretório de cada microsserviço e constrói as imagens Docker.</h3>
 
-Auth Service
+#Auth Service
 bash
 Copiar código
 cd auth-service
